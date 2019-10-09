@@ -2,6 +2,7 @@
 
 extern keymap_config_t keymap_config;
 
+// tap dance layers
 enum {
  TD_CLN = 0,
  TD_LBR=1,
@@ -31,12 +32,6 @@ enum {
 #define _TD_RBR TD(TD_RBR)
 #define ____ KC_NO
 
-// enum custom_keycodes {
-//   LOWER,
-//   RAISE,
-//   ADJUST,
-// };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY] = LAYOUT(
@@ -57,26 +52,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NAV] = LAYOUT(
-        RGB_TOG, RGB_SPI, RGB_HUI, RGB_VAI, RGB_SAI, ____,                     ____, ____, ____, ____, KC_WH_U, ____,
-        RGB_MOD, RGB_SPD, RGB_HUD, RGB_VAD, RGB_SAD, ____,                     KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_WH_D, ____,
-        RGB_RMOD, ____, ____, KC_MUTE, KC_VOLU, KC_BTN1,                       KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, ____, ____,
-        KC_LSFT, KC_LALT, KC_LCTL, KC_LGUI, KC_VOLD, KC_BTN2, ____,         ____, ____, _LINE_DOWN, _LINE_UP, ____, ____, ____,
-                                                  ____, ____, ____,         ____, ____, ____
-    ),
+   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+      RGB_TOG, RGB_SPI, RGB_HUI, RGB_VAI, RGB_SAI,  ____,                                ____,    ____,    ____,    ____,  KC_WH_U,  ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+      RGB_MOD, RGB_SPD, RGB_HUD, RGB_VAD, RGB_SAD,  ____,                              KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_WH_D,  ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+      RGB_RMOD,  ____,   ____,   KC_MUTE, KC_VOLU, KC_BTN1,                            KC_LEFT, KC_DOWN,  KC_UP,  KC_RGHT,  ____,    ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+      KC_LSFT, KC_LALT, KC_LCTL, KC_LGUI, KC_VOLD, KC_BTN2,  ____,              ____,   ____, _LINE_DOWN,_LINE_UP,  ____,   ____,   ____,
+   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                                  ____,   ____,   ____,           ____,   ____,   ____
+   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
 	[_SYMBOLS] = LAYOUT(
-        ____, ____, ____, ____, ____, ____,                  ____, ____, KC_LCBR, KC_RCBR, ____, ____,
-        ____, ____, ____, ____, ____, ____,                  KC_LT, KC_GT, KC_LBRC, KC_RBRC, ____, ____,
-        ____, ____, ____, ____, ____, ____,                  KC_PLUS, KC_EQL, KC_LPRN, KC_RPRN, ____, ____,
-        ____, ____, ____, ____, ____, ____, ____,      ____, ____, KC_GRV, KC_QUOT, KC_DQUO, ____, ____,
-                                ____, ____, ____,      ____, ____, ____
-    ),
+   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+       ____,    ____,    ____,    ____,    ____,   ____,                                ____,    ____,   KC_LCBR, KC_RCBR,   ____,   ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,    ____,    ____,    ____,    ____,   ____,                                KC_LT,   KC_GT,  KC_LBRC, KC_RBRC,   ____,   ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,    ____,    ____,    ____,    ____,   ____,                                KC_PLUS, KC_EQL, KC_LPRN, KC_RPRN,   ____,   ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,    ____,    ____,    ____,    ____,   ____,   ____,                ____,   ____,   KC_GRV,  KC_QUOT, KC_DQUO,   ____,   ____,
+   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                       ____,    ____,    ____,                      ____,    ____,    ____
+   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+   ),
 	[_WINDOWS] = LAYOUT(
-        ____, ____, ____, ____, ____, ____,                  HYPR(KC_6), HYPR(KC_7), HYPR(KC_8), HYPR(KC_9), ____, ____,
-        ____, ____, ____, ____, RESET, ____,                  HYPR(KC_Y), HYPR(KC_U), HYPR(KC_I), HYPR(KC_O), ____, ____,
-        ____, ____, ____, DEBUG, ____, ____,                  HYPR(KC_H), HYPR(KC_J), HYPR(KC_K), HYPR(KC_L), ____, ____,
-        ____, ____, ____, ____, ____, ____, ____,      ____, HYPR(KC_N), HYPR(KC_M), HYPR(KC_COMMA), HYPR(KC_DOT), ____, ____,
-                                ____, ____, ____,      ____, KC_TRNS, ____
-    )
+   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+       ____,    ____,    ____,    ____,    ____,    ____,                         HYPR(KC_6),HYPR(KC_7),HYPR(KC_8),HYPR(KC_9),   ____,   ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,    ____,    ____,    ____,    RESET,   ____,                         HYPR(KC_Y),HYPR(KC_U),HYPR(KC_I),HYPR(KC_O),   ____,   ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,    ____,    ____,    DEBUG,   ____,    ____,                         HYPR(KC_H),HYPR(KC_J),HYPR(KC_K),HYPR(KC_L),   ____,   ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,    ____,    ____,    ____,    ____,    ____,    ____,           ____,HYPR(KC_N),HYPR(KC_M),HYPR(KC_COMMA),HYPR(KC_DOT),  ____,   ____,
+   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                       ____,    ____,    ____,                      ____,  KC_TRNS,   ____
+   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+   )
 };
 
 
@@ -150,13 +163,14 @@ void dance_rbrackets_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-//All tap dance functions would go here. Only showing this one.
-qk_tap_dance_action_t tap_dance_actions[] = {
- [TD_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset),
- [TD_LBR] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_lbrackets_finished, dance_lbrackets_reset),
- [TD_RBR] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_rbrackets_finished, dance_rbrackets_reset),
 
+qk_tap_dance_action_t tap_dance_actions[] = {
+ [TD_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset), // semicolon and colon on tap/dbltap
+ [TD_LBR] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_lbrackets_finished, dance_lbrackets_reset), // middle bracket key - ([{
+ [TD_RBR] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_rbrackets_finished, dance_rbrackets_reset), // right bracket key - )]}
 };
+
+// notes and unused code
 // bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //   // If console is enabled, it will print the matrix position and status of each key pressed
 // #ifdef CONSOLE_ENABLE
