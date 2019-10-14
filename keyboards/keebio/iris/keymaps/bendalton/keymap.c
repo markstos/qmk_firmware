@@ -1,13 +1,13 @@
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
+
 // tap dance layers
 enum {
- TD_CLN = 0,
- TD_LBR = 1,
- TD_RBR = 2,
- TD_CP = 3,
- TD_DASH = 4
+ TD_CLN = 0, // ; or : or tap/dbl
+ TD_CP = 3, // copy/paste/get last clipboard item/clipboard manager for tap/dbl/trpl/hold
+ TD_DASH = 4, // - or _ for tap/dbl
+ TD_QUOTE = 5, // ' or '' for tap/dbl
 };
 
 enum my_keycodes {
@@ -37,10 +37,9 @@ enum my_keycodes {
 #define _PREV_TAB LGUI(LSFT(KC_LBRC))
 #define _NEXT_TAB LGUI(LSFT(KC_RBRC))
 #define _TD_CLN TD(TD_CLN)
-#define _TD_LBR TD(TD_LBR)
-#define _TD_RBR TD(TD_RBR)
 #define _TD_CP TD(TD_CP)
 #define _TD_DASH TD(TD_DASH)
+#define _TD_QUOTE TD(TD_QUOTE)
 #define _WINMODE MAGIC_TOGGLE_CTL_GUI
 #define ____ KC_NO
 
@@ -52,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   KC_BSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-      _CODE,    KC_A,    KC_S,    KC_D,   _FSYM,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,   _TD_CLN, KC_QUOT,
+      _CODE,    KC_A,    KC_S,    KC_D,   KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,   _TD_CLN, _TD_QUOTE,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  LGUI(KC_GRV),          _TD_CP,   KC_N,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
+     KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        LGUI(KC_GRV), KC_N,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     MO(_NAV), KC_DEL,  _ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -153,54 +152,7 @@ void dance_cln_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_lbrackets_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_LSFT);
-    register_code (KC_9);
-  } else if (state->count == 2) {
-    register_code (KC_LBRC);
-  } else {
-    register_code (KC_LSFT);
-    register_code (KC_LBRC);
-  }
-}
-
-void dance_lbrackets_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_9);
-    unregister_code (KC_LSFT);
-  } else if (state->count == 2) {
-    unregister_code (KC_LBRC);
-  } else {
-    unregister_code (KC_LBRC);
-    unregister_code (KC_LSFT);
-  }
-}
-
-void dance_rbrackets_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_LSFT);
-    register_code (KC_0);
-  } else if (state->count == 2) {
-    register_code (KC_RBRC);
-  } else {
-    register_code (KC_LSFT);
-    register_code (KC_RBRC);
-  }
-}
-
-void dance_rbrackets_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_0);
-    unregister_code (KC_LSFT);
-  } else if (state->count == 2) {
-    unregister_code (KC_RBRC);
-  } else {
-    unregister_code (KC_RBRC);
-    unregister_code (KC_LSFT);
-  }
-}
-
+// TODO add triple tap to undo a copy - e.g., open clipboard history, hit down twice and enter
 static int dance_copypaste_state = -1;
 void dance_copypaste_fin (qk_tap_dance_state_t *state, void *user_data) {
   dance_copypaste_state = cur_dance(state);
@@ -212,6 +164,9 @@ void dance_copypaste_fin (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_TAP:
         register_mods(MOD_BIT(KC_LGUI));
         register_code(KC_V);
+        break;
+    case TRIPLE_TAP:
+        SEND_STRING(SS_LGUI(SS_LALT("c")) SS_TAP(X_DOWN) SS_TAP(X_DOWN) SS_TAP(X_ENTER));
         break;
     case HOLD:
         register_mods(MOD_BIT(KC_LGUI));
@@ -265,14 +220,45 @@ void dance_dash_reset (qk_tap_dance_state_t *state, void *user_data) {
     dance_dash_state = -1;
 }
 
+void dance_quote_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_QUOT);
+  } else {
+    register_code (KC_RSFT);
+    register_code (KC_QUOT);
+  }
+}
 
+void dance_quote_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_QUOT);
+  } else {
+    unregister_code (KC_RSFT);
+    unregister_code (KC_QUOT);
+  }
+}
+
+// TODO: ADD doubletap to code key for capslock w/ color managment
+// void dance_capslock_fin (qk_tap_dance_state_t *state, void *user_data) {
+//   switch (dance_dash_state) {
+//     case SINGLE_TAP:
+//         unregister_code(KC_MINUS);
+//         break;
+//     case DOUBLE_TAP:
+//         unregister_code(KC_MINUS);
+//         unregister_mods(MOD_BIT(KC_LSFT));
+//         break;
+//     case HOLD:
+
+//     }
+//     dance_dash_state = -1;
+// }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset), // semicolon and colon on tap/dbltap
- [TD_LBR] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_lbrackets_finished, dance_lbrackets_reset), // middle bracket key - ([{
- [TD_RBR] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_rbrackets_finished, dance_rbrackets_reset), // right bracket key - )]}
- [TD_CP] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_copypaste_fin, dance_copypaste_reset), // right bracket key - )]}
- [TD_DASH] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_dash_fin, dance_dash_reset),
+ [TD_CP] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_copypaste_fin, dance_copypaste_reset), // copy/paste/undo-copy/clipboard history
+ [TD_DASH] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_dash_fin, dance_dash_reset), // - or _ for tap/dbl
+ [TD_QUOTE] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_quote_finished, dance_quote_reset) // ' or '' for tap/dbl
 };
 // Custom tapping terms
 
@@ -294,7 +280,7 @@ uint32_t desired = 1;
 uint8_t autolayer_mode = 1;
 int autolayer_brightness = 120;
 #define DEFAULT_COLOR 11, 255, autolayer_brightness
-void matrix_init_user() {
+void keyboard_post_init_user() {
     rgblight_sethsv(DEFAULT_COLOR);
 	rgblight_mode(1);
 }
