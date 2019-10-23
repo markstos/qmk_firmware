@@ -105,11 +105,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
        ____,    ____,    ____,    ____,    ____,    ____,                          HYPR(KC_6),HYPR(KC_7),HYPR(KC_8),HYPR(KC_9),   ____,   ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-       ____, DF(_QWERTY),_WINMODE, ____,    RESET,   ____,                         HYPR(KC_Y),HYPR(KC_U),HYPR(KC_I),HYPR(KC_O),   ____,   ____,
+       ____, TO(_QWERTY),_WINMODE, ____,    RESET,   ____,                         HYPR(KC_Y),HYPR(KC_U),HYPR(KC_I),HYPR(KC_O),   ____,   ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
        KC_TRNS,  ____,    ____,   DEBUG,    ____,    ____,                         HYPR(KC_H),HYPR(KC_J),HYPR(KC_K),HYPR(KC_L),   ____,   ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       ____,    ____,    ____, DF(_COLEMAK), ____,    ____,    ____,           ____,HYPR(KC_N),HYPR(KC_M),HYPR(KC_COMMA),HYPR(KC_DOT),  ____,   ____,
+       ____,    ____,    ____, TO(_COLEMAK), ____,    ____,    ____,           ____,HYPR(KC_N),HYPR(KC_M),HYPR(KC_COMMA),HYPR(KC_DOT),  ____,   ____,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                        ____,    ____,    ____,                      ____,  KC_TRNS,   ____
    //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -313,31 +313,33 @@ uint32_t layer_state_set_user(uint32_t state) {
   if(autolayer_mode == 0){
     return state  ;
   }
-  uint8_t layer = biton32(state);
+  uint8_t layer = get_highest_layer(state);
+   uprintf("layer: %u colemak: %u\n", layer, _COLEMAK);
 	  switch (layer) {
 		case _QWERTY:
-          rgblight_sethsv(DEFAULT_COLOR);
-		  rgblight_mode(desired);
+      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+		  rgblight_mode_noeeprom(1);
 		  break;
+    case _COLEMAK:
+      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+      rgblight_mode_noeeprom(2);
+      break;
 		case _NAV:
-		  check = rgblight_get_mode();
-            rgblight_sethsv(DEFAULT_COLOR);
-            rgblight_sethsv(100, rgblight_get_sat(), rgblight_get_val());
-			rgblight_mode(1);
+      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+      rgblight_sethsv_noeeprom(100, rgblight_get_sat(), rgblight_get_val());
+			rgblight_mode_noeeprom(1);
 		  break;
-		case _SYMBOLS: // Same as above but reverse direction, otherwise nightrider
-            rgblight_sethsv(DEFAULT_COLOR);
-            rgblight_sethsv(148 , rgblight_get_sat(), rgblight_get_val());
-			rgblight_mode(1);
+		case _SYMBOLS:
+      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+      rgblight_sethsv_noeeprom(148 , rgblight_get_sat(), rgblight_get_val());
+			rgblight_mode_noeeprom(1);
 		  break;
 		case _COMMAND:
-            rgblight_sethsv(DEFAULT_COLOR);
-            rgblight_decrease_val();
-			rgblight_mode(15);
+      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+      rgblight_decrease_val();
+			rgblight_mode_noeeprom(15);
 		  break;
-        case _COLEMAK:
-          rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL+3);
-		break;
+
 	  }
   prev = layer;
   return state;
