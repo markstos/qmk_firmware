@@ -8,6 +8,7 @@ enum {
  TD_CP = 3, // copy/paste/get last clipboard item/clipboard manager for tap/dbl/trpl/hold
  TD_DASH = 4, // - or _ for tap/dbl
  TD_QUOTE = 5, // ' or '' for tap/dbl
+ TD_NUMTERM = 6, // hold for num layer, dbl tap toggle num layer, or tap for term
 };
 
 enum my_keycodes {
@@ -21,6 +22,7 @@ enum my_keycodes {
 #define _NAV 2
 #define _SYMBOLS 3
 #define _COMMAND 4
+#define _NUMBERS 5
 
 #define _CODE MO(_COMMAND)
 #define _FSYM LT(_SYMBOLS,KC_F)
@@ -41,6 +43,7 @@ enum my_keycodes {
 #define _TD_CP TD(TD_CP)
 #define _TD_DASH TD(TD_DASH)
 #define _TD_QUOTE TD(TD_QUOTE)
+#define _TD_NUMTERM TD(TD_NUMTERM)
 #define _WINMODE MAGIC_TOGGLE_CTL_GUI
 #define ____ KC_NO
 
@@ -54,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       _CODE,    KC_A,    KC_S,    KC_D,   KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,   _TD_CLN, _TD_QUOTE,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        LGUI(KC_GRV), KC_N,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
+     KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        _TD_NUMTERM, KC_N,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     MO(_NAV), KC_DEL,  _ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -68,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       _CODE,    KC_A,    KC_R,    KC_S,   KC_T,    KC_D,                                KC_H,    KC_N,    KC_E,    KC_I,    KC_O,   _TD_QUOTE,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        LGUI(KC_GRV), KC_K,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
+     KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        _TD_NUMTERM, KC_K,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     MO(_NAV), KC_DEL,  _ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -90,13 +93,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 	[_SYMBOLS] = LAYOUT(
    //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-       ____,    ____,    ____,    ____,    ____,   ____,                                ____,    ____,   KC_LCBR, KC_RCBR,   ____,   ____,
+       ____,    ____,    ____,    ____,    ____,   ____,                                ____,    ____,  KC_LBRC, KC_RBRC,    ____,   ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-       ____,    ____,    ____,    ____,    ____,   ____,                                KC_LT,   KC_GT,  KC_LBRC, KC_RBRC,   ____,   ____,
+       ____,    ____,    ____,    ____,    ____,   ____,                                KC_LT,   KC_GT,  KC_LCBR, KC_RCBR, LSFT(KC_MINUS), ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-       ____,    ____,    ____,    ____,    ____,   ____,                                KC_PLUS, KC_EQL, KC_LPRN, KC_RPRN,   ____,   ____,
+       ____,    ____,    ____,    ____,    ____,   ____,                                KC_PLUS, KC_EQL, KC_LPRN, KC_RPRN,  KC_MINUS,   ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       ____,    ____,    ____,    ____,    ____,   ____,   ____,                ____,   ____,   KC_GRV,  LSFT(KC_COMMA), LSFT(KC_DOT),   ____,   ____,
+       ____,    ____,    ____,    ____,    ____,   ____,   ____,                ____,   ____,   KC_GRV,   KC_LT,   KC_GT,    ____,   ____,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                        ____,    ____,    ____,                      ____,    ____,    ____
    //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -105,13 +108,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
        ____,    ____,    ____,    ____,    ____,    ____,                          HYPR(KC_6),HYPR(KC_7),HYPR(KC_8),HYPR(KC_9),   ____,   ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-       ____, TO(_QWERTY),_WINMODE, ____,    RESET,   ____,                         HYPR(KC_Y),HYPR(KC_U),HYPR(KC_I),HYPR(KC_O),   ____,   ____,
+       ____, TO(_QWERTY),_WINMODE, ____,   RESET,   ____,                          HYPR(KC_Y),HYPR(KC_U),HYPR(KC_I),HYPR(KC_O),   ____,   ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
        KC_TRNS,  ____,    ____,   DEBUG,    ____,    ____,                         HYPR(KC_H),HYPR(KC_J),HYPR(KC_K),HYPR(KC_L),   ____,   ____,
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        ____,    ____,    ____, TO(_COLEMAK), ____,    ____,    ____,           ____,HYPR(KC_N),HYPR(KC_M),HYPR(KC_COMMA),HYPR(KC_DOT),  ____,   ____,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                        ____,    ____,    ____,                      ____,  KC_TRNS,   ____
+   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+   ),
+   	[_NUMBERS] = LAYOUT(
+   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+       ____,    ____,    ____,    ____,    ____,    ____,                                ____,    ____,    ____,    ____,    ____,    ____,
+   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,LSFT(KC_1),LSFT(KC_2),LSFT(KC_3),LSFT(KC_4),LSFT(KC_5),                  LSFT(KC_6),LSFT(KC_7),LSFT(KC_8),LSFT(KC_9),LSFT(KC_0),LSFT(KC_MINUS),
+   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                                KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_MINUS,
+   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+       ____,    ____,    ____,    ____,    ____,    ____,     ____,           KC_TRNS,     ____,    ____,    ____,    ____,    ____,    ____,
+   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                       ____,    ____,    ____,                      ____,    ____,     ____
    //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
    )
 };
@@ -254,6 +270,43 @@ void dance_quote_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+// TODO add triple tap to undo a copy - e.g., open clipboard history, hit down twice and enter
+static int dance_numterm_state = -1;
+void dance_numterm_fin (qk_tap_dance_state_t *state, void *user_data) {
+  dance_numterm_state = cur_dance(state);
+  switch (dance_numterm_state) {
+    case SINGLE_TAP:
+        register_mods(MOD_BIT(KC_LGUI));
+        register_code(KC_GRV);
+        break;
+    case DOUBLE_TAP:
+        // do nothing here
+        break;
+    case HOLD:
+        layer_on(_NUMBERS);
+    }
+}
+
+void dance_numterm_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (dance_numterm_state) {
+    case SINGLE_TAP:
+        unregister_code(KC_GRV);
+        unregister_mods(MOD_BIT(KC_LGUI));
+        break;
+    case DOUBLE_TAP:
+        if (layer_state_is(_NUMBERS))
+        {
+            layer_off(_NUMBERS);
+        } else {
+            layer_on(_NUMBERS);
+        }
+        break;
+    case HOLD:
+        layer_off(_NUMBERS);
+    }
+    dance_numterm_state = -1;
+}
+
 // TODO: ADD doubletap to code key for capslock w/ color managment
 // void dance_capslock_fin (qk_tap_dance_state_t *state, void *user_data) {
 //   switch (dance_dash_state) {
@@ -274,7 +327,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_CLN] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_cln_finished, dance_cln_reset), // semicolon and colon on tap/dbltap
  [TD_CP] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_copypaste_fin, dance_copypaste_reset), // copy/paste/undo-copy/clipboard history
  [TD_DASH] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_dash_fin, dance_dash_reset), // - or _ for tap/dbl
- [TD_QUOTE] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_quote_finished, dance_quote_reset) // ' or '' for tap/dbl
+ [TD_QUOTE] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_quote_finished, dance_quote_reset), // ' or '' for tap/dbl
+ [TD_NUMTERM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_numterm_fin, dance_numterm_reset)
 };
 // Custom tapping terms
 
@@ -316,30 +370,34 @@ uint32_t layer_state_set_user(uint32_t state) {
   uint8_t layer = get_highest_layer(state);
    uprintf("layer: %u colemak: %u\n", layer, _COLEMAK);
 	  switch (layer) {
-		case _QWERTY:
-      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
-		  rgblight_mode_noeeprom(1);
-		  break;
-    case _COLEMAK:
-      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
-      rgblight_mode_noeeprom(2);
-      break;
-		case _NAV:
-      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
-      rgblight_sethsv_noeeprom(100, rgblight_get_sat(), rgblight_get_val());
-			rgblight_mode_noeeprom(1);
-		  break;
-		case _SYMBOLS:
-      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
-      rgblight_sethsv_noeeprom(148 , rgblight_get_sat(), rgblight_get_val());
-			rgblight_mode_noeeprom(1);
-		  break;
-		case _COMMAND:
-      rgblight_sethsv_noeeprom(DEFAULT_COLOR);
-      rgblight_decrease_val();
-			rgblight_mode_noeeprom(15);
-		  break;
-
+        case _QWERTY:
+            rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+            rgblight_mode_noeeprom(1);
+        break;
+        case _COLEMAK:
+            rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+            rgblight_mode_noeeprom(13);
+        break;
+        case _NAV:
+            rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+            rgblight_sethsv_noeeprom(100, rgblight_get_sat(), rgblight_get_val());
+            rgblight_mode_noeeprom(1);
+        break;
+        case _SYMBOLS:
+            rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+            rgblight_sethsv_noeeprom(148 , rgblight_get_sat(), rgblight_get_val());
+            rgblight_mode_noeeprom(1);
+        break;
+        case _COMMAND:
+            rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+            rgblight_decrease_val();
+            rgblight_mode_noeeprom(15);
+        break;
+        case _NUMBERS:
+            rgblight_sethsv_noeeprom(DEFAULT_COLOR);
+            rgblight_sethsv_noeeprom(69, rgblight_get_sat(), rgblight_get_val());
+            rgblight_mode_noeeprom(1);
+        break;
 	  }
   prev = layer;
   return state;
