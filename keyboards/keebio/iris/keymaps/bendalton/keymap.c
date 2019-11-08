@@ -9,6 +9,7 @@ enum {
  TD_DASH = 4, // - or _ for tap/dbl
  TD_QUOTE = 5, // ' or '' for tap/dbl
  TD_NUMTERM = 6, // hold for num layer, dbl tap toggle num layer, or tap for term
+ TD_ENTGUI = 7,
 };
 
 enum my_keycodes {
@@ -33,7 +34,7 @@ enum my_keycodes {
 #define _COMGUI RGUI_T(KC_COMM)
 #define _DOTALT LALT_T(KC_DOT)
 #define _SLSHCTL RCTL_T(KC_SLSH)
-#define _ENTGUI LGUI_T(KC_ENT)
+#define _TD_ENTGUI TD(TD_ENTGUI)
 #define _SPCNAV LT(_NAV,KC_SPC)
 #define _LINE_DOWN LALT(LSFT(KC_DOWN))
 #define _LINE_UP LALT(LSFT(KC_UP))
@@ -59,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        _TD_NUMTERM, KC_N,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    MO(_NAV), KC_DEL,  _ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
+                                    MO(_NAV), KC_DEL,  _TD_ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
@@ -73,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        _TD_NUMTERM, KC_K,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    MO(_NAV), KC_DEL,  _ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
+                                    MO(_NAV), KC_DEL,  _TD_ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
@@ -119,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ),
    	[_NUMBERS] = LAYOUT(
    //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-       ____,    ____,    ____,    ____,    ____,    ____,                                ____,    ____,    ____,    ____,    ____,    ____,
+       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,                               KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
        ____,LSFT(KC_1),LSFT(KC_2),LSFT(KC_3),LSFT(KC_4),LSFT(KC_5),                  LSFT(KC_6),LSFT(KC_7),LSFT(KC_8),LSFT(KC_9),LSFT(KC_0),LSFT(KC_MINUS),
    //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -164,6 +165,39 @@ int cur_dance (qk_tap_dance_state_t *state) {
     return QUAD_TAP;
 
    return -1;
+}
+
+
+// TODO add triple tap to undo a copy - e.g., open clipboard history, hit down twice and enter
+static int dance_entgui_state = -1;
+void dance_entgui_fin (qk_tap_dance_state_t *state, void *user_data) {
+  dance_entgui_state = cur_dance(state);
+  switch (dance_entgui_state) {
+    case SINGLE_TAP:
+        register_code(KC_ENT);
+        break;
+    case DOUBLE_TAP:
+        register_mods(MOD_BIT(KC_LGUI));
+        register_code(KC_ENT);
+        break;
+    case HOLD:
+        register_mods(MOD_BIT(KC_LGUI));
+    }
+}
+
+void dance_entgui_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (dance_entgui_state) {
+    case SINGLE_TAP:
+        unregister_code(KC_ENT);
+        break;
+    case DOUBLE_TAP:
+        unregister_code(KC_ENT);
+        unregister_mods(MOD_BIT(KC_LGUI));
+        break;
+    case HOLD:
+        unregister_mods(MOD_BIT(KC_LGUI));
+    }
+    dance_entgui_state = -1;
 }
 
 void dance_cln_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -335,8 +369,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define TAPPING_TERM 250
 uint16_t get_tapping_term(uint16_t keycode) {
   switch (keycode) {
-    case _ENTGUI:
-      return 190;
+    // case TD_ENTGUI:
+    //   return 190;
     case _SLSHCTL:
       return 300;
     default:
@@ -370,7 +404,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   uint8_t layer = get_highest_layer(state);
    uprintf("layer: %u colemak: %u\n", layer, _COLEMAK);
 	  switch (layer) {
-        case _QWERTY:
+      case _QWERTY:
             rgblight_sethsv_noeeprom(DEFAULT_COLOR);
             rgblight_mode_noeeprom(1);
         break;
