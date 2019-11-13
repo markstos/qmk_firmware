@@ -26,7 +26,6 @@ enum my_keycodes {
 #define _NUMBERS 5
 
 #define _CODE MO(_COMMAND)
-#define _FSYM LT(_SYMBOLS,KC_F)
 #define _ZCTL LCTL_T(KC_Z)
 #define _XALT LALT_T(KC_X)
 #define _CGUI LGUI_T(KC_C)
