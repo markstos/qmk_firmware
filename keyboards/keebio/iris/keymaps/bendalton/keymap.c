@@ -52,7 +52,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   _TD_DASH,
+      KC_GESC,  ____,    ____,    ____,    ____,    ____,                               ____,    ____,    ____,    ____,    ____,   _TD_DASH,
+  //    KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   _TD_DASH,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,   KC_BSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -60,13 +61,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        _TD_NUMTERM, KC_N,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    MO(_NAV), KC_DEL,  _TD_ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
+                                   MO(_NAV), KC_DEL,  _TD_ENTGUI,                _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
     [_COLEMAK] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   _TD_DASH,
+     KC_GESC,  ____,    ____,    ____,    ____,    ____,                               ____,    ____,    ____,    ____,    ____,   _TD_DASH,
+  //    KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                               KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   _TD_DASH,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
       KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                               KC_J,    KC_L,    KC_U,    KC_Y,    _TD_CLN, KC_BSLS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -74,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT,  _ZCTL,   _XALT,   _CGUI,    KC_V,    KC_B,  _TD_CP,        _TD_NUMTERM, KC_K,    KC_M,   _COMGUI, _DOTALT, _SLSHCTL, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    MO(_NAV), KC_DEL,  _TD_ENTGUI,                  _SPCNAV, KC_BSPC,  MO(_SYMBOLS)
+                                    MO(_NAV), KC_DEL, _TD_ENTGUI,                _SPCNAV, KC_BSPC, MO(_SYMBOLS)
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
@@ -128,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        ____,    ____,    ____,    ____,    ____,    ____,     ____,           KC_TRNS,     ____,    ____,    ____,    ____,    ____,    ____,
    //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                       ____,    ____,    ____,                      ____,    ____,     ____
+                                     KC_DEL,  KC_BSPC,  _TD_ENTGUI,                KC_SPC, KC_BSPC,   ____
    //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
    )
 };
@@ -285,23 +287,35 @@ void dance_dash_reset (qk_tap_dance_state_t *state, void *user_data) {
     }
     dance_dash_state = -1;
 }
-
+static int dance_quote_state = -1;
 void dance_quote_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_QUOT);
-  } else {
-    register_code (KC_RSFT);
-    register_code (KC_QUOT);
-  }
+    dance_quote_state = cur_dance(state);
+     switch (dance_quote_state) {
+    case SINGLE_TAP:
+        register_code (KC_QUOT);
+        break;
+    case DOUBLE_TAP:
+        register_code (KC_RSFT);
+        register_code (KC_QUOT);
+        break;
+    case HOLD:
+        layer_on(_NUMBERS);
+    }
 }
 
 void dance_quote_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_QUOT);
-  } else {
-    unregister_code (KC_RSFT);
-    unregister_code (KC_QUOT);
-  }
+  switch (dance_quote_state) {
+    case SINGLE_TAP:
+        unregister_code (KC_QUOT);
+        break;
+    case DOUBLE_TAP:
+        unregister_code (KC_RSFT);
+        unregister_code (KC_QUOT);
+        break;
+    case HOLD:
+        layer_off(_NUMBERS);
+    }
+    dance_quote_state = -1;
 }
 
 // TODO add triple tap to undo a copy - e.g., open clipboard history, hit down twice and enter
@@ -362,7 +376,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  [TD_CP] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_copypaste_fin, dance_copypaste_reset), // copy/paste/undo-copy/clipboard history
  [TD_DASH] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_dash_fin, dance_dash_reset), // - or _ for tap/dbl
  [TD_QUOTE] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_quote_finished, dance_quote_reset), // ' or '' for tap/dbl
- [TD_NUMTERM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_numterm_fin, dance_numterm_reset)
+ [TD_NUMTERM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_numterm_fin, dance_numterm_reset),
+ [TD_ENTGUI] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_entgui_fin, dance_entgui_reset)
 };
 // Custom tapping terms
 
@@ -410,7 +425,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
         case _COLEMAK:
             rgblight_sethsv_noeeprom(DEFAULT_COLOR);
-            rgblight_mode_noeeprom(13);
+            rgblight_mode_noeeprom(6);
         break;
         case _NAV:
             rgblight_sethsv_noeeprom(DEFAULT_COLOR);
