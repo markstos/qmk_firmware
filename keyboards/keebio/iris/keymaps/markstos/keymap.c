@@ -23,9 +23,9 @@ extern keymap_config_t keymap_config;
 
 // Mark's defines
 #define ____ KC_NO
-#define _OS_CTL OSM(KC_LCTRL)
-#define _OS_LSFT OSM(KC_LSFT)
-#define _OS_RSFT OSM(KC_RSFT)
+#define _OS_CTL OSM(MOD_LCTL)
+#define _OS_LSFT OSM(MOD_LSFT)
+#define _OS_RSFT OSM(MOD_RSFT)
 #define _ALT_4 ALT_T(KC_4)
 #define _ALT_7 ALT_T(KC_7)
 
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _OS_LSFT,  KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,   XXXXXXX,          XXXXXXX,   KC_N,    KC_M,   KC_COMMA, KC_DOT, KC_SLASH,_OS_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                               LALT(KC_MINS), KC_ENT,  OSL(_SYMCRM),           MO(_RAISE),KC_SPACE,  KC_LGUI
+                               ALT_T(KC_MINS), KC_ENT,  OSL(_SYMCRM),           MO(_RAISE),KC_SPACE,  KC_LGUI
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
