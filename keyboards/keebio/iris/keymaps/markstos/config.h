@@ -35,3 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 #define RGBLIGHT_EFFECT_KNIGHT
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+#define TAPPING_TERM 250
+#define COMBO_COUNT 1
+#define COMBO_TERM 150

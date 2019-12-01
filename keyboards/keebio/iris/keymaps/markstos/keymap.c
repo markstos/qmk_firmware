@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#define TAPPING_TERM 250
 #define ONESHOT_TAP_TOGGLE 3
 #define IGNORE_MOD_TAP_INTERRUPT
 
@@ -46,6 +45,17 @@ extern keymap_config_t keymap_config;
 // TODO: Make updates from my sheet
 // TODO: Put fourth Iris thumb keys to use. (Open Clipboard and Paste into terminal?)
 // TODO: Add app switching to top row?
+
+enum combos {
+  JK_ESC,
+};
+
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [JK_ESC] = COMBO(jk_combo, KC_ESC),
+};
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
