@@ -65,29 +65,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_TOGNOM] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,                           KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-    KC_TRANS, KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,                           KC_TRANS,KC_TRANS,KC_TRANS, KC_TRANS,KC_TRANS,KC_TRANS,
+     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,                           KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,         KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,KC_TRANS,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_TRANS,KC_TRANS,OSL(_SYMGNM),              KC_TRANS,KC_TRANS,KC_TRANS
+                                     KC_TRNS, KC_TRNS,OSL(_SYMGNM),               KC_TRNS, KC_TRNS, KC_TRNS
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
     [_SYMCRM] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-      ____,      ____,    ____,    ____, ____,     ____,                             ____,      ____,    ____,    ____,    ____,    ____,
+     _______,  _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_GRAVE, KC_EXLM,  KC_AT,  KC_HASH, KC_DLR,  KC_PERC,                           KC_CIRC,  KC_AMPR, KC_ASTR,KC_LPRN,  KC_RPRN, KC_PIPE,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRANS,    KC_1,   KC_2,   KC_3,    _ALT_4,    KC_5,                            KC_6,  _ALT_7,    KC_8,    KC_9,    KC_0,    KC_COLON,
+      KC_TRNS,    KC_1,   KC_2,   KC_3,    _ALT_4,    KC_5,                            KC_6,  _ALT_7,    KC_8,    KC_9,    KC_0,    KC_COLON,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TRANS,  KC_ESC, KC_PLUS, KC_EQUAL, KC_LBRC,KC_LCBR,KC_TRANS,        KC_TRANS, KC_RCBR, KC_RBRC, KC_TRANS,KC_TRANS,KC_TRANS,KC_BSLASH,
+      KC_TRNS,  KC_ESC, KC_PLUS, KC_EQUAL, KC_LBRC,KC_LCBR, KC_TRNS,         KC_TRNS, KC_RCBR, KC_RBRC,  KC_TRNS, KC_TRNS, KC_TRNS,KC_BSLASH,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_TRANS,KC_TRANS,KC_TRANS,               MO(_CHROME),KC_TRANS,KC_TRANS
+                                     KC_TRNS, KC_TRNS, KC_TRNS,               MO(_CHROME), KC_TRNS, KC_TRNS
   //                               └────────┴────────┴────────┘                 └────────┴────────┴────────┘
     ),
 
