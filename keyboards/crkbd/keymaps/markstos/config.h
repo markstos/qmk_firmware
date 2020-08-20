@@ -61,7 +61,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define TAPPING_TERM_PER_KEY
 //#define IGNORE_MOD_TAP_INTERRUPT
-//#define PERMISSIVE_HOLD
+
+// When enabled, typing a mod-tap plus second within term will register as the mod-combo
+// Ref: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold 
+#define PERMISSIVE_HOLD
+
 //#define RGBLIGHT_SLEEP
 //#define RGBLIGHT_EFFECT_BREATHING
 //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL

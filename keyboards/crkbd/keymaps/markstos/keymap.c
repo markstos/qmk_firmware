@@ -99,16 +99,6 @@ enum macro_keycodes {
 
 /*
 
-TODO:
-  * Add Vim copy macro for "+y or (or just "+). This could be done in Vim, though.
-
-Recent changes:
-
- * remove KC_MINUS from LOWER
- * Remove KC_UNDS from RAISE
- * Move KC_COPY to C key on RAISE
- * Remove Control-Shift-P from RAISE
- * Move function keys to RAISE. F11 and F12 would go in outer, lower right column
 
 */
 
@@ -121,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  OSM(MOD_LSFT),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_EQL, \
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                               ALT_T(KC_MINUS), GUI_T(KC_ENT),  LOWER,  LT(_RAISE, KC_BSPC),  KC_SPC,  OSM(MOD_LSFT)  \
+                              OSM(MOD_LALT),  GUI_T(KC_ENT),  LOWER,     LT(_RAISE, KC_BSPC),  KC_SPC,  OSM(MOD_LSFT)  \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -131,9 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______,    KC_1,    KC_2,    KC_3,ALT_T(KC_4), KC_5,                      KC_6,  ALT_T(KC_7), KC_8,    KC_9,    KC_0, KC_COLON, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_ESC,   KC_EQL,  XXXXXXX, KC_LBRC, KC_LCBR,                    KC_RCBR, KC_RBRC, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLASH,\
+      _______, KC_ESC,   XXXXXXX,  XXXXXXX, KC_LBRC, KC_LCBR,                    KC_RCBR, KC_RBRC, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLASH,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS,  KC_TRNS,  LOWER,     LT(_ADJUST, KC_BSPC),  KC_TRNS  , KC_TRNS \
+                                          KC_TRNS,  LOWER,  KC_TRNS,     KC_TRNS, LT(_ADJUST, KC_BSPC), KC_TRNS \
                                       //`--------------------------'  `--------------------------'
     ),
 
@@ -143,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_HOME, KC_END,  XXXXXXX, XXXXXXX, KC_PGUP,                      KC_LEFT,  KC_DOWN, KC_UP, KC_RIGHT, KC_APP,  KC_F11,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, XXXXXXX, KC_PLUS, KC_COPY, KC_PASTE, KC_PGDN,                     KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_F12,\
+      _______, XXXXXXX, XXXXXXX, KC_COPY, KC_PASTE, KC_PGDN,                     KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_F12,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_TRNS,   KC_TRNS,  ADJUST,     RAISE, KC_TRNS, KC_TRNS \
+                                          KC_TRNS,   ADJUST,  KC_TRNS,     KC_TRNS, RAISE, KC_TRNS \
                                       //`--------------------------'  `--------------------------'
   ),
 
