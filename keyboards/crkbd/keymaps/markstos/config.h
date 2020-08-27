@@ -40,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Customized by markstos
 #define TAPPING_TERM 250
+#define TAPPING_TERM_PER_KEY
 
 // markstos: prevent keydown and keyup from firing on different layers
 #define PREVENT_STUCK_MODIFERS
@@ -59,7 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_LED     D5
 #define QMK_SPEAKER C6
 
-//#define TAPPING_TERM_PER_KEY
 //#define IGNORE_MOD_TAP_INTERRUPT
 
 // When enabled, typing a mod-tap plus second within term will register as the mod-combo
