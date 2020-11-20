@@ -113,7 +113,7 @@ combo_t key_combos[COMBO_COUNT] = {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case LT(_RAISE, KC_BSPC):
-            return 150;
+            return TAPPING_TERM_BSPC;
         default:
             return TAPPING_TERM;
     }
