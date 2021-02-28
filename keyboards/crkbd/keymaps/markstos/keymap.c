@@ -1,30 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#ifdef RGB_MATRIX_ENABLE
-// timeout timer
-static uint32_t timeout_timer = 0;
-#endif
-
-// Boolean to store LED state
-bool user_led_enabled = true;
-
-// [Post Init] --------------------------------------------------------------//
-void keyboard_post_init_user(void) {
-  #ifdef RGB_MATRIX_ENABLE
-    // Set RGB to known state
-    rgb_matrix_enable_noeeprom();
-    rgb_matrix_set_color_all(RGB_GREEN);
-  #endif
-
-  user_led_enabled = true;
-}
-
-
-#ifdef RGBLIGHT_ENABLE
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
-#endif
-
 extern uint8_t is_master;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -43,8 +18,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  BACKLIT,
-  RGBRST
+  BACKLIT
 };
 
 enum combos {
@@ -84,9 +58,6 @@ combo_t key_combos[COMBO_COUNT] = {
   // For Vim, put Escape on the home row
   [JK_ESC]    = COMBO(jk_combo, KC_ESC),
 
-  // Move pinkie-tab to home row on the same hand as Tab
-  // [SD_TAB]    = COMBO(sd_combo, KC_TAB),
-
   // Move common pinkie-backspace to the home row
   [FJ_BSPC]   = COMBO(fj_combo, KC_BSPC),
 
@@ -119,17 +90,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
-
-/*
-
-
-*/
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
@@ -147,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_GRV, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PIPE, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,    KC_1,    KC_2,    KC_3,ALT_T(KC_4), KC_5,                      KC_6,  ALT_T(KC_7), KC_8,    KC_9,    KC_0, KC_COLON, \
+      _______, KC_1,      KC_2,  KC_3,     KC_4,   KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_COLON, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_ESC,   XXXXXXX,  XXXXXXX, KC_LBRC, KC_LCBR,                    KC_RCBR, KC_RBRC, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLASH,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -169,37 +129,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      RGBRST,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_CAPS, XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,\
+      KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX, ADJUST,     ADJUST,  XXXXXXX, XXXXXXX \
                                       //`--------------------------'  `--------------------------'
   )
 };
 
-int RGB_current_mode;
-
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
-}
-
-// Setting ADJUST layer RGB back to default
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
-
-void matrix_init_user(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -212,19 +155,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
     case ADJUST:
@@ -234,46 +177,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           layer_off(_ADJUST);
         }
         return false;
-    case RGB_MOD:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          rgblight_mode(RGB_current_mode);
-          rgblight_step();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      return false;
-    case RGB_TOG:
-      if (record->event.pressed) {
-        #ifdef RGB_MATRIX_ENABLE
-          // Toggle matrix on key press
-          user_led_enabled ? rgb_matrix_disable_noeeprom() : rgb_matrix_enable_noeeprom();
-        #endif
-      } else {
-          // Flip User_led_enabled variable on key release
-          user_led_enabled = !user_led_enabled;
-      }
-      return false; // Skip all further processing of this key
-    case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          eeconfig_update_rgblight_default();
-          rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      break;
     default:
-      // Use process_record_keymap to reset timer on all other keypresses
-      if (record->event.pressed) {
-        #ifdef RGB_MATRIX_ENABLE
-          timeout_timer = timer_read32();
-          // Restore LEDs if they are enabled by user
-          if (user_led_enabled) {
-              rgb_matrix_enable_noeeprom();
-          }
-        #endif
-      }
       return true;
   }
   return true;
