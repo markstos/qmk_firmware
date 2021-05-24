@@ -13,6 +13,10 @@ extern uint8_t is_master;
 
 // markstos defines
 
+enum tap_dance_keycodes {
+  TD_QUOT,
+};
+
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -80,6 +84,10 @@ combo_t key_combos[COMBO_COUNT] = {
   [NM_RCBR]   = COMBO(nm_combo, KC_RCBR)
 };
 
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
+};
+
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -90,14 +98,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// KC_QUOT
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_MINUS, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- OSM(MOD_LCTL),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT, \
+ OSM(MOD_LCTL),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, TD(TD_QUOT), \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- OSM(MOD_LSFT),    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_EQL, \
+ KC_COLON,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_EQL, \
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                               OSM(MOD_LALT),  GUI_T(KC_ENT),  LOWER,     LT(_RAISE, KC_BSPC),  KC_SPC,  OSM(MOD_LSFT)  \
                                       //`--------------------------'  `--------------------------'
