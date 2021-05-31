@@ -43,6 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM_PER_KEY
 // used for Backspace // Layer switch
 #define TAPPING_TERM_BSPC 125
+// used for Tab // Layer switch
+#define TAPPING_TERM_TAB 125
 
 // markstos: prevent keydown and keyup from firing on different layers
 #define PREVENT_STUCK_MODIFERS
