@@ -93,7 +93,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case LT(_RAISE, KC_BSPC):
             return TAPPING_TERM_BSPC;
-        default:
+      case LT(_LOWER, KC_TAB):
+            return TAPPING_TERM_BSPC;
+      default:
             return TAPPING_TERM;
     }
 }
@@ -109,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  KC_COLON,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_EQL, \
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                              OSM(MOD_LALT),  GUI_T(KC_ENT),  LOWER,     LT(_RAISE, KC_BSPC),  KC_SPC,  OSM(MOD_LSFT)  \
+                 OSM(MOD_LALT),  GUI_T(KC_ENT),  LT(_LOWER, KC_TAB),     LT(_RAISE, KC_BSPC),  KC_SPC,  OSM(MOD_LSFT)  \
                                       //`--------------------------'  `--------------------------'
   ),
 
