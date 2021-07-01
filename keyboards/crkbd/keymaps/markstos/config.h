@@ -75,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //#define RGBLIGHT_EFFECT_KNIGHT
 //#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define COMBO_COUNT 10
+#define COMBO_COUNT 9
 
 // Set the COMBO_TERM so low that I won't type the keys one after each other during normal typing.
 // They would have be held together intentionally to trigger this.
