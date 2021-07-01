@@ -18,4 +18,4 @@ BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 # https://github.com/qmk/qmk_firmware/blob/master/docs/feature_rgblight.md
 RGBLIGHT_ENABLE = no
 
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no

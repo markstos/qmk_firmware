@@ -13,10 +13,6 @@ extern uint8_t is_master;
 
 // markstos defines
 
-enum tap_dance_keycodes {
-  TD_QUOT,
-};
-
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
@@ -27,7 +23,6 @@ enum custom_keycodes {
 
 enum combos {
   JK_ESC,
-  FJ_BSPC,
 
   RM_BSLASH,
   VU_SLSH,
@@ -43,7 +38,6 @@ enum combos {
 };
 
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM fj_combo[] = {KC_F, KC_J, COMBO_END};
 const uint16_t PROGMEM rm_combo[] = {KC_R, KC_M, COMBO_END};
 const uint16_t PROGMEM vu_combo[] = {KC_V, KC_U, COMBO_END};
 
@@ -61,9 +55,6 @@ combo_t key_combos[COMBO_COUNT] = {
 
   // For Vim, put Escape on the home row
   [JK_ESC]    = COMBO(jk_combo, KC_ESC),
-
-  // Move common pinkie-backspace to the home row
-  [FJ_BSPC]   = COMBO(fj_combo, KC_BSPC),
 
   // a line between the R & M positions draws a back slash
   [RM_BSLASH] = COMBO(rm_combo, KC_BSLASH),
@@ -84,11 +75,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [NM_RCBR]   = COMBO(nm_combo, KC_RCBR)
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_QUOT] = ACTION_TAP_DANCE_DOUBLE(KC_QUOTE, KC_DQT),
-};
-
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case LT(_RAISE, KC_BSPC):
@@ -103,9 +89,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-     KC_COLON,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_MINUS,\
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,KC_MINUS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- OSM(MOD_LCTL),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, TD(TD_QUOT),\
+ OSM(MOD_LCTL),   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,KC_SCLN,KC_QUOTE,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
  OSM(MOD_LSFT),   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_EQL,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
