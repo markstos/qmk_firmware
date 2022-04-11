@@ -11,6 +11,8 @@ extern uint8_t is_master;
 #define _RAISE 2
 #define _ADJUST 3
 
+#define OSM_ALGR OSM(MOD_RALT)
+
 // markstos defines
 
 enum custom_keycodes {
@@ -115,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       _______, KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, KC_HOME, KC_END, XXXXXXX, XXXXXXX, KC_PGUP,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_APP,  KC_F11, \
+      _______, KC_HOME, KC_END, XXXXXXX,OSM_ALGR, KC_PGUP,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_APP,  KC_F11, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, XXXXXXX, XXXXXXX, KC_COPY, KC_PASTE, KC_PGDN,                    KC_MPLY, KC_MPRV, KC_MNXT, KC_VOLD, KC_VOLU, KC_F12, \
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
