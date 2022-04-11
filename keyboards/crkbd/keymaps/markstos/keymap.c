@@ -25,56 +25,15 @@ enum custom_keycodes {
 
 enum combos {
   JK_ESC,
-
-  RM_BSLASH,
-  VU_SLSH,
-
-  RT_LPRN,
-  YU_RPRN,
-
-  FG_LPRN,
-  HJ_RPRN,
-
-  VB_LCBR,
-  NM_RCBR
 };
 
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM rm_combo[] = {KC_R, KC_M, COMBO_END};
-const uint16_t PROGMEM vu_combo[] = {KC_V, KC_U, COMBO_END};
-
-const uint16_t PROGMEM rt_combo[] = {KC_R, KC_T, COMBO_END};
-const uint16_t PROGMEM yu_combo[] = {KC_Y, KC_U, COMBO_END};
-
-const uint16_t PROGMEM fg_combo[] = {KC_F, KC_G, COMBO_END};
-const uint16_t PROGMEM hj_combo[] = {KC_H, KC_J, COMBO_END};
-
-const uint16_t PROGMEM vb_combo[] = {KC_V, KC_B, COMBO_END};
-const uint16_t PROGMEM nm_combo[] = {KC_N, KC_M, COMBO_END};
-
 
 combo_t key_combos[COMBO_COUNT] = {
 
   // For Vim, put Escape on the home row
   [JK_ESC]    = COMBO(jk_combo, KC_ESC),
 
-  // a line between the R & M positions draws a back slash
-  [RM_BSLASH] = COMBO(rm_combo, KC_BSLASH),
-
-  // a line between the V & U positions draws a forward slash
-  [VU_SLSH]   = COMBO(vu_combo, KC_SLSH),
-
-  // Brackets combos are pressed with a single finger in between two keys
-  [RT_LPRN]   = COMBO(rt_combo, KC_LBRC),
-  [YU_RPRN]   = COMBO(yu_combo, KC_RBRC),
-
-  // Parens are pressed with a single finger between F&J or H&J
-  [FG_LPRN]   = COMBO(fg_combo, KC_LPRN),
-  [HJ_RPRN]   = COMBO(hj_combo, KC_RPRN),
-
-  // Curly Braces are pressed with a single figure between two keys
-  [VB_LCBR]   = COMBO(vb_combo, KC_LCBR),
-  [NM_RCBR]   = COMBO(nm_combo, KC_RCBR)
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
