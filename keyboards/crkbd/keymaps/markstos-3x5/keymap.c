@@ -11,7 +11,8 @@ extern uint8_t is_master;
 #define _RAISE 2
 #define _FUNC 3
 
-#define OSM_ALGR OSM(MOD_RALT)
+#define OSM_LALT OSM(MOD_LALT)
+#define OSM_RALT OSM(MOD_RALT)
 
 #define ALT_C      LALT_T(KC_C)
 #define ALT_GRV    LALT_T(KC_GRV)  
@@ -93,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_CAPS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX,\
+      XXXXXXX, KC_CAPS, XXXXXXX, OSM_LALT,XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, OSM_RALT,XXXXXXX, RESET,   XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, FUNC, XXXXXXX \
                                       //`--------------------------'  `--------------------------'
