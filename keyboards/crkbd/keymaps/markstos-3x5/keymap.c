@@ -33,6 +33,19 @@ enum custom_keycodes {
   BACKLIT
 };
 
+enum combos {
+  JK_ESC,
+};
+
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+
+  // For Vim, put Escape on the home row
+  [JK_ESC]    = COMBO(jk_combo, KC_ESC),
+
+};
+
 uint16_t get_tapping_term(uint16_t keycode) {
     switch (keycode) {
 // This is on the Raise layer. I don't need a short tapping term here
