@@ -66,8 +66,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_LED     D5
 #define QMK_SPEAKER C6
 
-//#define IGNORE_MOD_TAP_INTERRUPT
-
 // When enabled, typing a mod-tap plus second within term will register as the mod-combo
 // Ref: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold 
 #define PERMISSIVE_HOLD
@@ -77,7 +75,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //#define RGBLIGHT_EFFECT_KNIGHT
 //#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define COMBO_COUNT 1
+#define COMBO_COUNT 2
 
 // Set the COMBO_TERM so low that I won't type the keys one after each other during normal typing.
 // They would have be held together intentionally to trigger this.

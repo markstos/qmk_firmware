@@ -35,15 +35,18 @@ enum custom_keycodes {
 
 enum combos {
   JK_ESC,
+  FD_DASH
 };
 
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 
   // For Vim, put Escape on the home row
   [JK_ESC]    = COMBO(jk_combo, KC_ESC),
-
+  // Dash on home row
+  [FD_DASH]    = COMBO(fd_combo, KC_MINUS),
 };
 
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -93,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, KC_DEL , XXXXXXX, KC_UNDS, KC_PLUS, KC_SCLN,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_PIPE, XXXXXXX, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_HOME, KC_END,  KC_PIPE, KC_EQL , KC_PGUP,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_APP, XXXXXXX, \
+      XXXXXXX, KC_HOME, KC_END,  KC_MINS, KC_EQL , KC_PGUP,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_APP, XXXXXXX, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_LT,    KC_GT, ALT_COPY,KC_PASTE, KC_PGDN,                    KC_MPLY, KC_MPRV,ALT_MNXT, KC_VOLD, KC_VOLU, XXXXXXX, \
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -105,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,OSM_LALT, XXXXXXX,                     XXXXXXX, OSM_RALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_CAPS, XXXXXXX, OSM_LALT,XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, OSM_RALT,XXXXXXX, RESET,   XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
