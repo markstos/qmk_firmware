@@ -11,6 +11,7 @@ extern uint8_t is_master;
 #define _RAISE 2
 #define _FUNC 3
 
+#define OSM_LCTL OSM(MOD_LCTL)
 #define OSM_LALT OSM(MOD_LALT)
 #define OSM_RALT OSM(MOD_RALT)
 
@@ -35,11 +36,15 @@ enum custom_keycodes {
 
 enum combos {
   JK_ESC,
-  FD_DASH
+  FD_DASH,
+  QW_TAB,
+  THREE_FOUR_DASH
 };
 
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
+const uint16_t PROGMEM three_four_combo[] = {KC_3, KC_4, COMBO_END};
+const uint16_t PROGMEM qw_combo[] = {KC_Q, KC_W, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 
@@ -47,6 +52,11 @@ combo_t key_combos[COMBO_COUNT] = {
   [JK_ESC]    = COMBO(jk_combo, KC_ESC),
   // Dash on home row
   [FD_DASH]    = COMBO(fd_combo, KC_MINUS),
+  // Dash on num layer to quickly type 0-9
+  [THREE_FOUR_DASH]    = COMBO(three_four_combo, KC_MINUS),
+
+  // Tab on QW, useful for "Alt-Tab" and "Super-Tab"
+  [QW_TAB]    = COMBO(qw_combo, KC_TAB),
 };
 
 uint16_t get_tapping_term(uint16_t keycode) {
@@ -73,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,KC_QUOTE, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,   KC_Z,    KC_X,   ALT_C,    KC_V,    KC_B,                         KC_N,    KC_M ,ALT_COMM,  KC_DOT,KC_SLSH,  XXXXXXX,\
+      XXXXXXX,   KC_Z,    KC_X,   KC_C,    KC_V,    KC_B,                         KC_N,    KC_M , KC_COMM,  KC_DOT,KC_SLSH,  XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                 OSM(MOD_LCTL),  GUI_T(KC_ENT),  LT(_LOWER, KC_TAB),     LT(_RAISE, KC_BSPC),  LT(_FUNC, KC_SPC),  OSM(MOD_LSFT)  \
+                 OSM_LCTL,  GUI_T(KC_ENT),  LT(_LOWER, KC_TAB),     LT(_RAISE, KC_BSPC),  LT(_FUNC, KC_SPC),  OSM(MOD_LSFT)  \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -85,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_1,    KC_2,   KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_BSLS, KC_TILD,ALT_GRV, KC_LBRC, KC_LCBR,                      KC_RCBR, KC_RBRC, ALT_COMM,KC_DOT,  KC_SLSH, XXXXXXX,\
+      XXXXXXX, XXXXXXX, KC_TILD,KC_GRV, KC_LBRC, KC_LCBR,                       KC_RCBR, KC_RBRC, KC_COMM,KC_DOT,  KC_SLSH, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_TRNS,  KC_TRNS, LOWER,    KC_MINS, KC_TRNS, KC_COLON \
                                       //`--------------------------'  `--------------------------'
@@ -94,11 +104,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  
   [_RAISE] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_DEL , XXXXXXX, KC_UNDS, KC_PLUS, KC_SCLN,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_PIPE, XXXXXXX, \
+      XXXXXXX, KC_DEL , XXXXXXX, KC_UNDS, KC_PLUS, KC_PGUP,                     XXXXXXX, KC_LT, KC_GT,  KC_BSLS,  KC_PIPE, XXXXXXX, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_HOME, KC_END,  KC_MINS, KC_EQL , KC_PGUP,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_APP, XXXXXXX, \
+      XXXXXXX, KC_HOME, KC_END,  KC_MINS, KC_EQL , KC_PGDN,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_APP, XXXXXXX, \
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_LT,    KC_GT, ALT_COPY,KC_PASTE, KC_PGDN,                    KC_MPLY, KC_MPRV,ALT_MNXT, KC_VOLD, KC_VOLU, XXXXXXX, \
+      XXXXXXX, KC_LT,    KC_GT, KC_COPY,KC_PASTE, KC_SCLN,                    KC_MPLY, KC_MPRV,KC_MNXT, KC_VOLD, KC_VOLU, XXXXXXX, \
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           CTL_ESC, KC_TRNS, XXXXXXX,    RAISE, KC_TRNS, KC_TRNS \
                                       //`--------------------------'  `--------------------------'
@@ -110,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,OSM_LALT, XXXXXXX,                     XXXXXXX, OSM_RALT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_CAPS, XXXXXXX, OSM_LALT,XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, OSM_RALT,XXXXXXX, RESET,   XXXXXXX,\
+      XXXXXXX, KC_CAPS, XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX, RESET,   XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, FUNC, XXXXXXX \
                                       //`--------------------------'  `--------------------------'

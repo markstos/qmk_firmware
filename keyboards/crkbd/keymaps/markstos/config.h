@@ -39,12 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_FORCE_HOLD
 
 // Customized by markstos
-#define TAPPING_TERM 250
+#define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
-// used for Backspace // Layer switch
-#define TAPPING_TERM_BSPC 125
-// used for Tab // Layer switch
-#define TAPPING_TERM_TAB 125
+// used for Tapping Term on thumb keys
+#define TAPPING_TERM_THUMB 125
 
 // markstos: prevent keydown and keyup from firing on different layers
 #define PREVENT_STUCK_MODIFERS
@@ -64,7 +62,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_LED     D5
 #define QMK_SPEAKER C6
 
-//#define IGNORE_MOD_TAP_INTERRUPT
+// Prevent normal rollover on alphas from accidentally triggering mods.
+#define IGNORE_MOD_TAP_INTERRUPT
 
 // When enabled, typing a mod-tap plus second within term will register as the mod-combo
 // Ref: https://beta.docs.qmk.fm/using-qmk/software-features/tap_hold#permissive-hold 
@@ -75,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //#define RGBLIGHT_EFFECT_KNIGHT
 //#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define COMBO_COUNT 1
+#define COMBO_COUNT 3
 
 // Set the COMBO_TERM so low that I won't type the keys one after each other during normal typing.
 // They would have be held together intentionally to trigger this.
