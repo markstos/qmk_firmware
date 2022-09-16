@@ -44,6 +44,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // used for Tapping Term on thumb keys
 #define TAPPING_TERM_THUMB 125
 
+// If you press a dual-role key, press another key, and then release the
+// dual-role key, all within the tapping term, by default the dual-role key
+// will perform its tap action. If the HOLD_ON_OTHER_KEY_PRESS option is
+// enabled, the dual-role key will perform its hold action instead.
+#define HOLD_ON_OTHER_KEY_PRESS
+
 // markstos: prevent keydown and keyup from firing on different layers
 #define PREVENT_STUCK_MODIFERS
 
