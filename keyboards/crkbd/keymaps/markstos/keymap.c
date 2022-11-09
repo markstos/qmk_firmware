@@ -13,23 +13,14 @@ enum custom_keycodes {
 };
 
 enum combos {
-  JK_ESC,
-  FD_DASH,
-  THREE_FOUR_DASH
+  JK_ESC
 };
 
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM fd_combo[] = {KC_F, KC_D, COMBO_END};
-const uint16_t PROGMEM three_four_combo[] = {KC_3, KC_4, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-
   // For Vim, put Escape on the home row
   [JK_ESC]    = COMBO(jk_combo, KC_ESC),
-  // Dash on home row
-  [FD_DASH]    = COMBO(fd_combo, KC_MINUS),
-  // Dash on num layer to quickly type 0-9
-  [THREE_FOUR_DASH]    = COMBO(three_four_combo, KC_MINUS),
 
 };
 
@@ -106,7 +97,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
       case LT(_RAISE, KC_BSPC):
@@ -117,4 +107,3 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
-
